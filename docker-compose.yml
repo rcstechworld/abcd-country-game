@@ -1,0 +1,8 @@
+services:
+  abcd-game:
+    build: .
+    image: abcd/v1:latest
+    container_name: abcd-game
+    ports:
+      - "8081:80"
+    restart: unless-stopped

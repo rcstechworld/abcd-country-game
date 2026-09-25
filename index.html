@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
+<title>ABCD Country Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">🌍</div>
+      <div>
+        <h1>ABCD Country Game</h1>
+        <p>Learn • Play • Explore</p>
+      </div>
+    </div>
+    <div class="best-score">🏆 Best: <span id="bestScore">0</span></div>
+  </header>
+
+  <main>
+    <section id="home" class="screen active">
+      <div class="hero">
+        <div class="hero-globe">🌎</div>
+        <h2>Let's Explore the World!</h2>
+        <p>Learn countries, capitals and flags while having fun.</p>
+        <div class="home-buttons">
+          <button class="primary big" onclick="showScreen('learn')">🌍 Learn Countries</button>
+          <button class="secondary big" onclick="startQuiz()">🎯 Play ABCD Quiz</button>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div>🏳️<b>Flags</b><span>Recognize countries</span></div>
+        <div>🏛️<b>Capitals</b><span>Learn city names</span></div>
+        <div>⭐<b>Rewards</b><span>Earn points</span></div>
+        <div>🔊<b>Voice</b><span>Listen & learn</span></div>
+      </div>
+    </section>
+
+    <section id="learn" class="screen">
+      <div class="topbar">
+        <button class="back" onclick="showScreen('home')">← Home</button>
+        <h2>Choose a Country</h2>
+      </div>
+      <input id="search" class="search" placeholder="🔎 Search country..." oninput="renderCountries()">
+      <div id="countries" class="country-grid"></div>
+    </section>
+
+    <section id="country" class="screen">
+      <button class="back" onclick="showScreen('learn')">← Countries</button>
+      <div id="countryCard" class="country-card"></div>
+    </section>
+
+    <section id="quiz" class="screen">
+      <div class="quiz-head">
+        <button class="back" onclick="showScreen('home')">← Home</button>
+        <div class="quiz-stats">
+          <span>❤️ <b id="lives">3</b></span>
+          <span>⭐ <b id="score">0</b></span>
+        </div>
+      </div>
+
+      <div class="quiz-meta">
+        <span id="questionNumber">Question 1/10</span>
+        <span id="levelLabel">🌟 Easy</span>
+      </div>
+      <div class="progress"><div id="progressBar"></div></div>
+
+      <div class="quiz-card">
+        <div class="quiz-icon" id="quizFlag">🌍</div>
+        <p class="small">What is the capital of</p>
+        <h2 id="questionCountry">India</h2>
+
+        <button class="speak" onclick="speakQuestion()">🔊 Hear Question</button>
+
+        <div id="options" class="options"></div>
+        <p id="feedback" class="feedback"></p>
+
+        <button id="nextBtn" class="primary hidden" onclick="nextQuestion()">Next ➜</button>
+      </div>
+    </section>
+
+    <section id="result" class="screen">
+      <div class="result-card">
+        <div class="trophy">🏆</div>
+        <h2>Quiz Complete!</h2>
+        <p class="result-score"><span id="finalScore">0</span> / 10</p>
+        <p id="resultMessage"></p>
+        <div id="stars" class="stars">⭐⭐⭐</div>
+        <div class="result-actions">
+          <button class="primary" onclick="startQuiz()">🔄 Play Again</button>
+          <button class="secondary" onclick="showScreen('home')">🏠 Home</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>🌟 Learn • Play • Explore • Have Fun! 🌟</footer>
+</div>
+<!-- Country learning popup -->
+<div id="countryModal" class="country-modal" aria-hidden="true">
+  <div class="country-modal-backdrop" id="countryModalBackdrop"></div>
+  <div class="country-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalCountryName">
+    <button type="button" class="modal-close" id="closeCountryModal" aria-label="Close">✕</button>
+    <div id="modalFlag"></div>
+    <h2 id="modalCountryName"></h2>
+    <p class="modal-capital-label">Capital City</p>
+    <div id="modalCapital" class="modal-capital"></div>
+
+    <div class="modal-actions">
+      <button type="button" class="nav-btn" id="modalPrev">← Previous</button>
+      <button type="button" class="listen modal-listen" id="modalListen">🔊 Listen</button>
+      <button type="button" class="nav-btn" id="modalNext">Next →</button>
+    </div>
+    <div id="modalCount" class="learn-count"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
