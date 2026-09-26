@@ -1,0 +1,18 @@
+
+/* Country Explorer additions */
+#modalExtraInfo{width:100%;margin-top:14px;text-align:left}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.info-item{background:#f6f9ff;border:1px solid #dce7f7;border-radius:14px;padding:11px 12px;display:flex;flex-direction:column;gap:4px}
+.info-item span{font-size:.82rem;color:#5b6b83}.info-item strong{font-size:.98rem;color:#1f2d3d}
+.section-title{font-weight:800;font-size:1rem;margin:16px 0 9px}
+.subdivision-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:300px;overflow-y:auto;padding-right:3px}
+.subdivision-card{border:1px solid #dce7f7;background:#fff;border-radius:12px;padding:10px;text-align:left;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+.subdivision-card:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(30,80,140,.12)}
+.subdivision-name,.subdivision-capital,.subdivision-leader{display:block}.subdivision-name{font-weight:800;color:#1f2d3d}
+.subdivision-capital,.subdivision-leader{margin-top:3px;font-size:.82rem;color:#5b6b83}
+.explorer-actions{display:flex;justify-content:center;margin-top:14px}
+.more-info-btn,.back-info-btn{border:0;border-radius:12px;padding:10px 15px;font-weight:800;cursor:pointer}
+.more-info-btn{background:#eef4ff;color:#1c57a8}.back-info-btn{background:#f2f4f7;color:#334155;margin-bottom:10px}
+.data-note{background:#fff8e8;border:1px solid #f2dfad;border-radius:12px;padding:10px 12px;margin-top:12px;font-size:.86rem;color:#725b20}
+.state-detail h3{margin:4px 0 10px;font-size:1.25rem}
+@media (max-width:600px){.info-grid,.subdivision-list{grid-template-columns:1fr}.subdivision-list{max-height:280px}}

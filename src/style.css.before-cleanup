@@ -187,306 +187,324 @@ body.modal-open{overflow:hidden}
 .state-detail h3{margin:4px 0 10px;font-size:1.25rem}
 @media (max-width:600px){.info-grid,.subdivision-list{grid-template-columns:1fr}.subdivision-list{max-height:280px}}
 
-/* Keep Country Explorer details after navigation and country count */
+/* ===== FINAL COUNTRY EXPLORER MODAL LAYOUT ===== */
+
 #modalExtraInfo {
     order: 7 !important;
     width: 100%;
     margin-top: 14px;
     text-align: left;
     box-sizing: border-box;
-    flex-shrink: 0;
 }
 
-/* =========================================================
-   MODERN COUNTRY EXPLORER UI
-   ========================================================= */
-
-/* Modal card */
-.country-modal-card {
-    background: linear-gradient(145deg, #ffffff 0%, #f7fbff 100%);
-    border: 1px solid rgba(37, 99, 235, 0.10);
-    box-shadow:
-        0 30px 80px rgba(15, 35, 55, 0.30),
-        0 8px 25px rgba(37, 99, 235, 0.10);
-}
-
-/* Country count */
-#modalCount {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 7px 16px;
-    border-radius: 999px;
-    background: #eef5ff;
-    color: #4b6584;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-/* =========================================================
-   TOP NAVIGATION BUTTONS
-   ========================================================= */
-
-.modal-actions {
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.modal-actions .nav-btn {
-    min-width: 145px;
-    height: 50px;
-    border-radius: 15px;
-    border: 2px solid #cfe4f5;
-    background: #e8f5ff;
-    color: #075985;
-    font-size: 17px;
-    font-weight: 800;
-    box-shadow: 0 4px 10px rgba(14, 116, 144, 0.08);
-    transition: all .18s ease;
-}
-
-.modal-actions .nav-btn:hover:not(:disabled) {
-    background: #d8efff;
-    border-color: #7cc9ef;
-    transform: translateY(-2px);
-    box-shadow: 0 7px 16px rgba(14, 116, 144, 0.16);
-}
-
-.modal-actions .nav-btn:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.modal-actions .nav-btn:disabled {
-    opacity: .38;
-    cursor: not-allowed;
-}
-
-/* =========================================================
-   LISTEN BUTTON - PRIMARY
-   ========================================================= */
-
-.modal-actions .modal-listen {
-    min-width: 150px;
-    height: 54px;
-    border: none;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    color: #fff;
-    font-size: 18px;
-    font-weight: 900;
-    box-shadow:
-        0 8px 20px rgba(37, 99, 235, 0.28),
-        inset 0 1px 0 rgba(255,255,255,.20);
-    transition: all .18s ease;
-}
-
-.modal-actions .modal-listen:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow:
-        0 12px 26px rgba(37, 99, 235, 0.38),
-        inset 0 1px 0 rgba(255,255,255,.25);
-}
-
-.modal-actions .modal-listen:active {
-    transform: translateY(0) scale(.99);
-}
-
-/* =========================================================
-   INFORMATION CARDS
-   ========================================================= */
-
-.info-grid {
-    gap: 12px;
-    margin: 18px 0;
-}
-
-.info-item {
-    background: linear-gradient(145deg, #ffffff, #f4f8ff);
-    border: 1px solid #d7e5f5;
-    border-radius: 16px;
-    padding: 14px 15px;
-    box-shadow: 0 3px 10px rgba(30, 80, 140, 0.06);
-    transition: all .18s ease;
-}
-
-.info-item:hover {
-    transform: translateY(-2px);
-    border-color: #a9c9ed;
-    box-shadow: 0 7px 18px rgba(30, 80, 140, 0.12);
-}
-
-.info-item span {
-    color: #58708e;
-    font-size: .88rem;
-    font-weight: 600;
-}
-
-.info-item strong {
-    color: #142f4d;
-    font-size: 1rem;
-    margin-top: 3px;
-}
-
-/* =========================================================
-   STATES / SUBDIVISIONS SECTION
-   ========================================================= */
-
-.section-title {
-    color: #12395f;
-    font-size: 1.08rem;
-    font-weight: 900;
-    margin: 18px 0 8px;
-}
-
-.subdivision-count {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 12px;
-    border-radius: 999px;
-    background: #eaf8f1;
-    color: #18794e;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.subdivision-count strong {
-    font-size: 17px;
-}
-
-/* =========================================================
-   VIEW STATES BUTTON
-   ========================================================= */
-
-.view-subdivisions-btn {
+/* Information cards */
+#modalExtraInfo .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
     width: 100%;
-    min-height: 52px;
-    border: 2px solid #b7e4d0;
-    border-radius: 15px;
-    background: linear-gradient(135deg, #ecfff6, #dff8ed);
-    color: #087443;
-    font-size: 16px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all .18s ease;
+    margin: 14px 0;
 }
 
-.view-subdivisions-btn:hover {
-    background: linear-gradient(135deg, #dff9ec, #c9f1dc);
-    border-color: #76cba2;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(16, 120, 75, 0.14);
-}
-
-/* =========================================================
-   MORE INFO BUTTON
-   ========================================================= */
-
-.explorer-actions {
-    margin-top: 18px;
-}
-
-.more-info-btn {
-    min-width: 170px;
-    min-height: 50px;
-    padding: 11px 20px;
-    border: 2px solid #d9d2ff;
-    border-radius: 15px;
-    background: linear-gradient(135deg, #f3f0ff, #e9e4ff);
-    color: #5b3db5;
-    font-size: 16px;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(91, 61, 181, 0.08);
-    transition: all .18s ease;
-}
-
-.more-info-btn:hover {
-    background: linear-gradient(135deg, #e9e4ff, #ddd5ff);
-    border-color: #b9a9f5;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(91, 61, 181, 0.16);
-}
-
-/* =========================================================
-   SUBDIVISION CARDS
-   ========================================================= */
-
-.subdivision-card {
-    border: 1px solid #d6e3f1;
-    background: linear-gradient(145deg, #ffffff, #f8fbff);
+#modalExtraInfo .info-item {
+    background: #f7faff;
+    border: 1px solid #dce7f7;
     border-radius: 14px;
     padding: 12px;
-    box-shadow: 0 3px 9px rgba(30, 80, 140, .05);
+    box-sizing: border-box;
 }
 
-.subdivision-card:hover {
-    border-color: #9fc4e8;
-    background: #f4f9ff;
-    transform: translateY(-2px);
-    box-shadow: 0 7px 16px rgba(30, 80, 140, .12);
+#modalExtraInfo .info-item span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 5px;
 }
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+#modalExtraInfo .info-item strong {
+    display: block;
+    color: #17324d;
+    font-size: 16px;
+    line-height: 1.3;
+}
 
+/* States / Provinces */
+#modalExtraInfo .subdivision-section {
+    width: 100%;
+    margin-top: 16px;
+}
+
+#modalExtraInfo .section-title {
+    color: #17324d;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 10px;
+}
+
+#modalExtraInfo .subdivision-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 2px;
+}
+
+#modalExtraInfo .subdivision-card {
+    width: 100%;
+    border: 1px solid #dce7f7;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 11px;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+#modalExtraInfo .subdivision-name {
+    display: block;
+    font-weight: 800;
+    color: #17324d;
+}
+
+#modalExtraInfo .subdivision-capital,
+#modalExtraInfo .subdivision-leader {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Pending information */
+#modalExtraInfo .data-note {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #fff8e8;
+    border: 1px solid #f2dfad;
+    color: #725b20;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Wikipedia button - ALWAYS LAST */
+#modalExtraInfo .explorer-actions {
+    order: 99;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+#modalExtraInfo .more-info-btn {
+    width: min(100%, 360px);
+    min-height: 48px;
+    border: 0;
+    border-radius: 14px;
+    background: #eef4ff;
+    color: #1d4ed8;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+#modalExtraInfo .more-info-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, .16);
+}
+
+/* State detail */
+#modalExtraInfo .state-detail {
+    width: 100%;
+}
+
+#modalExtraInfo .state-detail h3 {
+    color: #17324d;
+    font-size: 24px;
+    margin: 5px 0 12px;
+}
+
+#modalExtraInfo .back-info-btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 9px 13px;
+    background: #f2f4f7;
+    color: #334155;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Mobile */
 @media (max-width: 600px) {
 
-    .modal-actions {
-        gap: 8px;
+    #modalExtraInfo .info-grid,
+    #modalExtraInfo .subdivision-list {
+        grid-template-columns: 1fr;
     }
 
-    .modal-actions .nav-btn,
-    .modal-actions .modal-listen {
-        min-width: 0;
-        flex: 1;
-        font-size: 15px;
-        padding: 0 10px;
+    #modalExtraInfo .subdivision-list {
+        max-height: 250px;
     }
 
-    .modal-actions .modal-listen {
-        min-height: 50px;
-    }
-
-    .info-grid {
-        gap: 9px;
-    }
-
-    .info-item {
-        padding: 12px;
-    }
-
-    .view-subdivisions-btn,
-    .more-info-btn {
+    #modalExtraInfo .more-info-btn {
         width: 100%;
     }
 }
-/* States / Union Territories heading with counts */
-.subdivision-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
+
+
+/* Country Explorer - subdivision overview */
+.subdivision-summary {
+    margin-top: 16px;
 }
 
-.division-count-inline {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 11px;
-    border-radius: 999px;
-    background: #eaf4ff;
-    border: 1px solid #c9e0f7;
+.subdivision-count {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 7px;
+    margin: 10px 0 14px;
+    color: #5b6b83;
+}
+
+.subdivision-count strong {
+    font-size: 30px;
     color: #2563eb;
-    font-size: 13px;
+}
+
+.view-subdivisions-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 13px 16px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 15px;
     font-weight: 800;
-    white-space: nowrap;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.view-subdivisions-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(37, 99, 235, .25);
+}
+
+.subdivision-detail-list {
+    width: 100%;
+}
+
+.subdivision-page-title {
+    text-align: center;
+    margin: 5px 0 15px;
+    color: #17324d;
+}
+
+.subdivision-full-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    max-height: 430px;
+    overflow-y: auto;
+    padding: 3px;
+}
+
+.subdivision-full-list .subdivision-card {
+    width: 100%;
+}
+
+.subdivision-full-list .subdivision-leader {
+    color: #2563eb;
+    font-weight: 700;
 }
 
 @media (max-width: 600px) {
-    .subdivision-title {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
+    .subdivision-full-list {
+        grid-template-columns: 1fr;
+        max-height: 400px;
     }
 }
+
+cat >> src/style.css <<'CSS'
+
+/* ===== Country Explorer Modal - Improved Layout ===== */
+
+.country-modal-card {
+    max-height: 92vh;
+    overflow: hidden;
+}
+
+#modalExtraInfo {
+    max-height: 42vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 4px 8px 12px;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+}
+
+/* Keep the basic country information compact */
+#modalExtraInfo .info-grid {
+    margin-bottom: 12px;
+}
+
+/* States/UT overview */
+#modalExtraInfo .subdivision-summary {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f8fbff;
+    border: 1px solid #dce9f8;
+    border-radius: 16px;
+}
+
+#modalExtraInfo .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    color: #17324d;
+}
+
+#modalExtraInfo .subdivision-count {
+    margin: 7px 0 10px;
+}
+
+/* Full state/UT list */
+#modalExtraInfo .subdivision-full-list {
+    max-height: 36vh;
+    overflow-y: auto;
+}
+
+/* More Info always at bottom of information section */
+#modalExtraInfo .explorer-actions {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    padding: 12px 0 4px;
+    margin-top: 12px;
+}
+
+/* State detail */
+#modalExtraInfo .state-detail {
+    padding-bottom: 8px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .country-modal-card {
+        max-height: 94vh;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    #modalExtraInfo {
+        max-height: 45vh;
+    }
+
+    #modalExtraInfo .subdivision-full-list {
+        max-height: 38vh;
+    }
+}
+
+CSS

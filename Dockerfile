@@ -1,7 +1,8 @@
 FROM nginx:alpine
 
 COPY index.html /usr/share/nginx/html/index.html
-COPY src/ /usr/share/nginx/html/
+COPY src/ /usr/share/nginx/html/src/
+COPY data/ /usr/share/nginx/html/data/
 
 EXPOSE 80
 

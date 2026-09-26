@@ -166,97 +166,41 @@ function ensureModalExtraInfo() {
 function renderCountryExtraInfo(c) {
   const el = ensureModalExtraInfo();
   const info = countryInfo[c[1]] || {};
-  const subdivisionCount = info.subdivisions?.length || 0;
-
   let html = `
     <div class="info-grid">
-      <div class="info-item">
-        <span>🏛️ Capital</span>
-        <strong>${escapeHtml(info.capital || c[2])}</strong>
+      <div class="info-item"><span>🏛️ Capital</span><strong>${escapeHtml(info.capital || c[2])}</strong></div>
+      ${info.continent ? `<div class="info-item"><span>🌍 Continent</span><strong>${escapeHtml(info.continent)}</strong></div>` : ''}
+      ${info.currency ? `<div class="info-item"><span>💰 Currency</span><strong>${escapeHtml(info.currency)}</strong></div>` : ''}
+      ${info.headOfState ? `<div class="info-item"><span>👤 ${escapeHtml(info.headOfStateTitle || 'Head of State')}</span><strong>${escapeHtml(info.headOfState)}</strong></div>` : ''}
+      ${info.headOfGovernment ? `<div class="info-item"><span>👨‍💼 ${escapeHtml(info.headOfGovernmentTitle || 'Head of Government')}</span><strong>${escapeHtml(info.headOfGovernment)}</strong></div>` : ''}
+    </div>
+  `;
+
+  if (info.subdivisions?.length) {
+    html += `
+      <div class="subdivision-section">
+        <div class="section-title">🗺️ ${escapeHtml(info.subdivisionLabel || 'Administrative Divisions')}</div>
+        <div class="subdivision-list">
+          ${info.subdivisions.map((s,i) => `
+            <button type="button" class="subdivision-card" data-subdivision-index="${i}">
+              <span class="subdivision-name">${escapeHtml(s.name)}</span>
+              <span class="subdivision-capital">🏛️ ${escapeHtml(s.capital || '—')}</span>
+              ${s.chiefMinister ? `<span class="subdivision-leader">👤 Chief Minister: ${escapeHtml(s.chiefMinister)}</span>` : ''}
+            </button>
+          `).join('')}
+        </div>
       </div>
+    `;
+  } else {
+    html += `<div class="data-note">ℹ️ Detailed administrative and government data is being added and verified country-by-country.</div>`;
+  }
 
-      ${info.continent ? `
-        <div class="info-item">
-          <span>🌍 Continent</span>
-          <strong>${escapeHtml(info.continent)}</strong>
-        </div>` : ''}
-
-      ${info.currency ? `
-        <div class="info-item">
-          <span>💰 Currency</span>
-          <strong>${escapeHtml(info.currency)}</strong>
-        </div>` : ''}
-
-      ${info.headOfState ? `
-        <div class="info-item">
-          <span>👤 ${escapeHtml(info.headOfStateTitle || 'Head of State')}</span>
-          <strong>${escapeHtml(info.headOfState)}</strong>
-        </div>` : ''}
-
-      ${info.headOfGovernment ? `
-        <div class="info-item">
-          <span>👨‍💼 ${escapeHtml(info.headOfGovernmentTitle || 'Head of Government')}</span>
-          <strong>${escapeHtml(info.headOfGovernment)}</strong>
-        </div>` : ''}
-    </div>
-  `;
-
-if (subdivisionCount) {
-  const stateCount = info.subdivisions.filter(
-    s => s.type === 'State'
-  ).length;
-
-  const unionTerritoryCount = info.subdivisions.filter(
-    s => s.type === 'Union Territory'
-  ).length;
-
-  html += `
-    <div class="subdivision-section subdivision-summary">
-
-      <div class="section-title subdivision-title">
-        <span>
-          🗺️ ${escapeHtml(info.subdivisionLabel || 'Administrative Divisions')}
-        </span>
-
-        ${
-          info.subdivisionLabel === 'States & Union Territories'
-            ? `
-              <span class="division-count-inline">
-                ${stateCount} States • ${unionTerritoryCount} Union Territories
-              </span>
-            `
-            : `
-              <span class="division-count-inline">
-                ${subdivisionCount} total
-              </span>
-            `
-        }
-      </div>
-
-      <button
-        type="button"
-        class="view-subdivisions-btn"
-        id="viewSubdivisionsBtn"
-      >
-        🗺️ View ${escapeHtml(
-          info.subdivisionLabel || 'Administrative Divisions'
-        )} →
-      </button>
-
-    </div>
-  `;
-}
-  html += `
-    <div class="explorer-actions">
-      <button type="button" class="more-info-btn" id="moreInfoBtn">
-        📚 More Info
-      </button>
-    </div>
-  `;
+  html += `<div class="explorer-actions">
+    <button type="button" class="more-info-btn" id="moreInfoBtn">📚 More Info — Wikipedia</button>
+  </div>`;
 
   el.innerHTML = html;
 }
-
 
 function renderCountryModal(autoSpeak = false) {
   const c = countries[learningIndex];
@@ -273,93 +217,21 @@ function renderCountryModal(autoSpeak = false) {
   if (autoSpeak) speakCountry(c);
 }
 
-function showSubdivisionDetail(c, index = null) {
-  const info = countryInfo[c[1]] || {};
-  const subdivisions = info.subdivisions || [];
+function showSubdivisionDetail(c, index) {
+  const s = countryInfo[c[1]]?.subdivisions?.[index];
+  if (!s) return;
   const el = ensureModalExtraInfo();
-
-  if (index !== null && subdivisions[index]) {
-    const s = subdivisions[index];
-
-    el.innerHTML = `
-      <div class="state-detail">
-        <button type="button" class="back-info-btn" id="backToSubdivisionList">
-          ← Back to ${escapeHtml(info.subdivisionLabel || 'Administrative Divisions')}
-        </button>
-
-        <h3>${escapeHtml(s.name)}</h3>
-
-        <div class="info-grid">
-          <div class="info-item">
-            <span>🏛️ Capital</span>
-            <strong>${escapeHtml(s.capital || '—')}</strong>
-          </div>
-
-          <div class="info-item">
-            <span>📍 Type</span>
-            <strong>${escapeHtml(s.type || 'Administrative division')}</strong>
-          </div>
-
-          ${s.chiefMinister ? `
-            <div class="info-item">
-              <span>👤 Chief Minister</span>
-              <strong>${escapeHtml(s.chiefMinister)}</strong>
-            </div>` : ''}
-
-          ${s.leader && s.leaderTitle ? `
-            <div class="info-item">
-              <span>🏛️ ${escapeHtml(s.leaderTitle)}</span>
-              <strong>${escapeHtml(s.leader)}</strong>
-            </div>` : ''}
-        </div>
-      </div>
-    `;
-
-    return;
-  }
-
   el.innerHTML = `
-    <div class="subdivision-detail-list">
-
-      <button type="button" class="back-info-btn" id="backToCountryInfo">
-        ← Back to ${escapeHtml(c[1])}
-      </button>
-
-      <h3 class="subdivision-page-title">
-        ${escapeHtml(info.subdivisionLabel || 'Administrative Divisions')}
-      </h3>
-
-      <div class="subdivision-full-list">
-        ${subdivisions.map((s, i) => `
-          <button
-            type="button"
-            class="subdivision-card"
-            data-subdivision-index="${i}"
-          >
-            <span class="subdivision-name">
-              ${escapeHtml(s.name)}
-            </span>
-
-            <span class="subdivision-capital">
-              🏛️ ${escapeHtml(s.capital || '—')}
-            </span>
-
-            ${s.chiefMinister ? `
-              <span class="subdivision-leader">
-                👤 Chief Minister: ${escapeHtml(s.chiefMinister)}
-              </span>` : ''}
-
-            ${s.leader && s.leaderTitle ? `
-              <span class="subdivision-leader">
-                🏛️ ${escapeHtml(s.leaderTitle)}: ${escapeHtml(s.leader)}
-              </span>` : ''}
-          </button>
-        `).join('')}
+    <div class="state-detail">
+      <button type="button" class="back-info-btn" id="backToCountryInfo">← Back to ${escapeHtml(c[1])}</button>
+      <h3>${escapeHtml(s.name)}</h3>
+      <div class="info-grid">
+        <div class="info-item"><span>🏛️ Capital</span><strong>${escapeHtml(s.capital || '—')}</strong></div>
+        <div class="info-item"><span>📍 Type</span><strong>${escapeHtml(s.type || 'Administrative division')}</strong></div>
+        ${s.chiefMinister ? `<div class="info-item"><span>👤 Chief Minister</span><strong>${escapeHtml(s.chiefMinister)}</strong></div>` : ''}
       </div>
-    </div>
-  `;
+    </div>`;
 }
-
 
 function closeCountryModal() {
   $('countryModal').classList.remove('show');
@@ -738,38 +610,19 @@ $('countryModal').addEventListener('click', (event) => {
     return;
   }
 
-  const viewSubdivisionsBtn = target.closest('#viewSubdivisionsBtn');
-  if (viewSubdivisionsBtn) {
-    event.preventDefault();
-    event.stopPropagation();
-    showSubdivisionDetail(countries[learningIndex]);
-    return;
-  }
-
   const subdivisionBtn = target.closest('.subdivision-card');
   if (subdivisionBtn) {
     event.preventDefault();
     event.stopPropagation();
-    showSubdivisionDetail(
-      countries[learningIndex],
-      Number(subdivisionBtn.dataset.subdivisionIndex)
-    );
+    showSubdivisionDetail(countries[learningIndex], Number(subdivisionBtn.dataset.subdivisionIndex));
     return;
   }
 
-  const backToCountryInfo = target.closest('#backToCountryInfo');
-  if (backToCountryInfo) {
+  const backBtn = target.closest('#backToCountryInfo');
+  if (backBtn) {
     event.preventDefault();
     event.stopPropagation();
     renderCountryExtraInfo(countries[learningIndex]);
-    return;
-  }
-
-  const backToSubdivisionList = target.closest('#backToSubdivisionList');
-  if (backToSubdivisionList) {
-    event.preventDefault();
-    event.stopPropagation();
-    showSubdivisionDetail(countries[learningIndex]);
     return;
   }
 
@@ -792,7 +645,4 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') previousModalCountry();
 });
 
-loadCountryInfo().finally(() => {
-  console.log("Country information loaded:", Object.keys(countryInfo).length);
-  renderCountries();
-});
+renderCountries();
